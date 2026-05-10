@@ -1,0 +1,595 @@
+{
+  "info": {
+    "_postman_id": "0361fb39-dd99-4862-95af-9dffc386eddb",
+    "name": "JSONPlaceholder API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54679802",
+    "_collection_link": "https://go.postman.co/collection/54679802-0361fb39-dd99-4862-95af-9dffc386eddb?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has users\", function () {",
+                  "    const users = pm.response.json();",
+                  "    pm.expect(users.length).to.equal(10);",
+                  "});",
+                  "",
+                  "pm.test(\"First user has a name\", function () {",
+                  "    const users = pm.response.json();",
+                  "    pm.expect(users[0].name).to.equal(\"Leanne Graham\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/users",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Single User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"User id is 1\", () => {",
+                  "    pm.expect(pm.response.json().id).to.equal(1);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/users/1",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"User was created\", () => {",
+                  "    pm.expect(pm.response.json().name).to.equal(\"Toxirmalik\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Toxirmalik\",\n  \"username\": \"toxirmalik\",\n  \"email\": \"toxirmaliksaloxiddinov@gmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/users",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/users/1",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "Get All Posts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Posts list returned\", () => {",
+                  "    pm.expect(pm.response.json().length).to.be.above(0);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/posts",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "posts"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login Valid",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Token received\", () => {",
+                  "    pm.expect(pm.response.json().token).to.exist;",
+                  "});",
+                  "",
+                  "// Save token for other requests",
+                  "pm.collectionVariables.set(\"token\", pm.response.json().token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"{{username}}\",\n    \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/auth",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login Invalid",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Bad credentials returned\", () => {",
+                  "    pm.expect(pm.response.json().reason).to.equal(\"Bad credentials\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"wrong\",\n    \"password\": \"wrong\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/auth",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Get All Bookings",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Bookings list returned\", () => {",
+                  "    pm.expect(pm.response.json().length).to.be.above(0);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Booking created with correct name\", () => {",
+                  "    pm.expect(pm.response.json().booking.firstname)",
+                  "      .to.equal(pm.collectionVariables.get(\"firstname\"));",
+                  "});",
+                  "pm.collectionVariables.set(\"bookingId\", pm.response.json().bookingid);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const firstnames = [\"Toxirmalik\", \"Shermuhammad\", \"Ali\", \"Temurmalik\", \"Abdullo\", \"Bilol\"];",
+                  "const lastnames = [\"Saloxiddinov\", \"Daminjonov\", \"Bozorov\", \"Mirzaabdualev\", \"Javlonov\"];",
+                  "",
+                  "const randomFirstname = firstnames[Math.floor(Math.random() * firstnames.length)];",
+                  "const randomLastname = lastnames[Math.floor(Math.random() * lastnames.length)];",
+                  "const randomPrice = Math.floor(Math.random() * 500) + 50;",
+                  "",
+                  "pm.collectionVariables.set(\"firstname\", randomFirstname);",
+                  "pm.collectionVariables.set(\"lastname\", randomLastname);",
+                  "pm.collectionVariables.set(\"price\", randomPrice);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"firstname\": \"{{firstname}}\",\n    \"lastname\": \"{{lastname}}\",\n    \"totalprice\": {{price}},\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2026-06-01\",\n        \"checkout\": \"2026-06-07\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Single Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Has firstname\", () => {",
+                  "    pm.expect(pm.response.json().firstname).to.exist;",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/{{bookingId}}",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "{{bookingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Lastname updated\", () => {",
+                  "    pm.expect(pm.response.json().lastname).to.equal(\"Updated\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"firstname\": \"Toxirmalik\",\n    \"lastname\": \"Updated\",\n    \"totalprice\": 200,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2026-07-01\",\n        \"checkout\": \"2026-07-07\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/{{bookingId}}",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "{{bookingId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Cookie",
+                "value": "token={{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/{{bookingId}}",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "{{bookingId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "bookingId",
+      "value": ""
+    },
+    {
+      "key": "firstname",
+      "value": ""
+    },
+    {
+      "key": "lastname",
+      "value": ""
+    },
+    {
+      "key": "price",
+      "value": ""
+    }
+  ]
+}
